@@ -1,0 +1,33 @@
+service: sls-boilerplate
+frameworkVersion: '4'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-1
+  profile: default
+
+custom:
+  serverless-offline:
+    useChildProcesses: false
+  serverlessPluginTypescript:
+    tsConfigFileLocation: './tsconfig.build.json'
+
+package:
+  individually: true
+  exclude:
+    - package.json
+    - package-lock.json
+  include:
+    - '!node_modules/**'
+
+build:
+  esbuild: false
+
+functions:
+  - ${file(./src/handlers/functions.yml)}

@@ -1,0 +1,6 @@
+TestHandler:
+  handler: src/handlers/test-handler.testHandler
+  events:
+    - http:
+        method: Get
+        path: /test
